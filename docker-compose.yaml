@@ -28,4 +28,4 @@ services:
     container_name: api-lms
     build: .
     ports:
-    - "5000:8079"
+    - "80:80"
