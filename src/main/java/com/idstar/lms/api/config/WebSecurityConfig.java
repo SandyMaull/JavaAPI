@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/v2/api-docs/**").permitAll()
                 .antMatchers(POST, "/admin/**").hasAnyAuthority(Role.ADMIN.name())
-                .anyRequest().hasAnyAuthority()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(authenticationFilter)
                 .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
