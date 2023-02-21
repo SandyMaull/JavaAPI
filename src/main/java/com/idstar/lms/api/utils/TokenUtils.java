@@ -7,12 +7,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.idstar.lms.api.exceptions.InvalidTokenException;
 import com.idstar.lms.api.service.UserService;
 import com.idstar.lms.api.model.user.Role;
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisURI;
-import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import redis.clients.jedis.Jedis;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -34,15 +33,16 @@ public class TokenUtils {
         syncCommands = setUpRedis();
         return instance;
     }
-
-    @Value("${redis.host}")
-    private static String redisHost = "redis";
+    @Autowired
+    @Value("${spring.redis.host}")
+    private static String redisHost = "redis-lms";
     private static int redisPort = 6379;
 
-    @Value("${redis.password}")
+    @Autowired
+    @Value("${spring.redis.password}")
     private static String redisPassword = "123qweasd";
 
-    @Value("${redis.db}")
+    @Value("${spring.redis.db}")
     private static int redisDatabase = '0';
 
     @Value("${jwt.secret}")
@@ -58,7 +58,7 @@ public class TokenUtils {
 
     private static final Integer bearerLength = "Bearer ".length();
 
-    private static RedisCommands<String, String> syncCommands;
+    private static Jedis syncCommands;
 
     public Map<String, String> generateJwtToken(String username, List<String> roles) {
         String accessToken = JWT.create()
@@ -128,15 +128,24 @@ public class TokenUtils {
         }
     }
 
-    private static RedisCommands<String, String> setUpRedis() {
-        RedisURI localhost = RedisURI.Builder
-                .redis(redisHost, redisPort).withPassword(redisPassword.toCharArray())
-                .withDatabase(redisDatabase).build();
-        RedisClient redisClient = RedisClient.create(localhost);
+    private static Jedis setUpRedis() {
+        log.warn("rhost : " + redisHost);
+        log.warn("rpwd : " + redisPassword);
+
+//        RedisURI localhost = RedisURI.Builder
+//                .redis(redisHost, redisPort).withHost(redisHost).withPassword(redisPassword.toCharArray())
+//                .withDatabase(redisDatabase).build();
+//        JedisConnection redisClient = new JedisConnectionFactory();
+//        redisClient.setHostName(redisHost);
+//        redisClient.setPort(6379);
+        Jedis jedis = new Jedis(redisHost, redisPort);
+
 
         try {
-            StatefulRedisConnection<String, String> connection = redisClient.connect();
-            return connection.sync();
+            jedis.auth(redisPassword);
+            jedis.select(0);
+            jedis.connect();
+            return jedis;
         } catch (Exception ex) {
             log.error(ex.getMessage());
             ex.printStackTrace();

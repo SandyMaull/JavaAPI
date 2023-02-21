@@ -16,8 +16,9 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
-  redis:
+  redis-lms:
     container_name: redis-lms
+    hostname: redis-lms
     image: redis:latest
     command: [ "redis-server", "/etc/redis/redis.conf" ]
     volumes:
@@ -27,5 +28,7 @@ services:
   lms-api:
     container_name: api-lms
     build: .
+    links:
+      - redis-lms
     ports:
     - "80:80"
