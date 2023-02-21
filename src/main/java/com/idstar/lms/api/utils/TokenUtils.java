@@ -36,18 +36,17 @@ public class TokenUtils {
     }
 
     @Value("${redis.host}")
-    private static String redisHost;
-    @Value("${redis.port}")
-    private static int redisPort;
+    private static String redisHost = "redis";
+    private static int redisPort = 6379;
 
     @Value("${redis.password}")
-    private static String redisPassword;
+    private static String redisPassword = "123qweasd";
 
     @Value("${redis.db}")
-    private static int redisDatabase;
+    private static int redisDatabase = '0';
 
     @Value("${jwt.secret}")
-    private static String jwtSecret;
+    private static String jwtSecret = "awog-key";
 
     @Value("${token.access.expr.ms}")
     private final int accessTokenExp = 300000; // ms
