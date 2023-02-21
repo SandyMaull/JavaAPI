@@ -21,9 +21,9 @@ Tergantung mood, mungkin bakal implemen file storage s3bucket pake minio
 
 
 ## Container
-
+    docker-compose build
     docker-compose up -d
-Enjoy localhost:5000
+Enjoy localhost:5000, WSL volume mount buat postgre ada issue di permission, jadi data yg ada di container postgre ga persist, tambahin sendiri di docker-compose.yml klo mau mount volume
 ## Manual Installation
 [Hari gini blm pake docker, ewh](https://www.google.com/search?q=how%20to%20run%20maven%20project)
 

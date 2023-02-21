@@ -8,10 +8,9 @@ services:
       POSTGRES_DB: lms
       POSTGRES_USER: vclude
       POSTGRES_PASSWORD: 123qweasd
+      PGDATA: /pg-data
     ports:
       - "5432:5432"
-    volumes:
-      - ./pg:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U vclude -d lms
       interval: 10s
@@ -26,6 +25,7 @@ services:
     ports:
       - "6379:6379"
   lms-api:
+    container_name: api-lms
     build: .
-      ports:
-        - "5000:8079"
+    ports:
+    - "5000:8079"
