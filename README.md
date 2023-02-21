@@ -27,11 +27,6 @@ Enjoy localhost, WSL volume mount buat postgre ada issue di permission, jadi dat
 ## Manual Installation
 [Hari gini blm pake docker, ewh](https://www.google.com/search?q=how%20to%20run%20maven%20project)
 
-## Export a file
-
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
-
-
 # Swag Ger
 ## Swagger Docs URI
 /api/swagger-ui
