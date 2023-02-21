@@ -49,7 +49,7 @@ public class TokenUtils {
     private static String jwtSecret = "awog-key";
 
     @Value("${token.access.expr.ms}")
-    private final int accessTokenExp = 300000; // ms
+    private final int accessTokenExp = 3600000; // ms
     @Value("${token.refresh.expr.sec}")
     private final int refreshTokenExp = 600; // sec
 
