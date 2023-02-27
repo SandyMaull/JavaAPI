@@ -15,7 +15,7 @@ Ini dibuat semata mata untuk saya mahir sebagai Java Pro Player
 
 # Upcoming Experiment
 
-Tergantung mood, mungkin bakal implemen file storage s3bucket pake minio
+N/a
 
 # Installation
 
@@ -25,7 +25,7 @@ Tergantung mood, mungkin bakal implemen file storage s3bucket pake minio
     docker-compose up -d
 Enjoy localhost, WSL volume mount buat postgre ada issue di permission, jadi data yg ada di container postgre ga persist, tambahin sendiri di docker-compose.yml klo mau mount volume
 ## Manual Installation
-[Hari gini blm pake docker, ewh](https://www.google.com/search?q=how%20to%20run%20maven%20project)
+[Yes](https://www.google.com/search?q=how%20to%20run%20maven%20project)
 
 # Swag Ger
 ## Swagger Docs URI
